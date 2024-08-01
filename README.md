@@ -1,5 +1,5 @@
 
-# Příkladu pro výběrové řízení
+# Příklad pro výběrové řízení
 
 
 ## Úkoly
@@ -34,7 +34,7 @@ Unit, Playwright
 ## Struktura projektu
 
 - **Testy**: Testy pro splnění úkolu
-- **Utilities**: Pomocné třídy pro manipulaci s daty a práci s databází.
+- **Utilities**: Pomocné třídy pro manipulaci s daty a prácí s databází.
 
 ## Konfigurace
 
