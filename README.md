@@ -27,7 +27,7 @@ Ověření v databázi
 C#
 
 ## Framework
-Unit, Playwright
+NUnit, Playwright
 
 
 
