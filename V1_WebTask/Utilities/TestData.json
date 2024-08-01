@@ -1,0 +1,20 @@
+{
+  "TestData": {
+    "BaseUrl": "https://v1-web-git-test-viableone.vercel.app/",
+    "DatabaseData": {
+      "Host": "ep-sweet-hill-a2rj10ap.eu-central-1.aws.neon.tech",
+      "Port": 5432,
+      "DatabaseName": "viableone",
+      "TableName": "contact_form",
+      "Username": "qaendineers",
+      "Password": "HzGwhc4Tv7VC"
+    },
+    "FormData": {
+      "Name": "Josef Novák",
+      "Email": "novak@gmail.com",
+      "Phone": "+1234567890",
+      "Message": "Lorem ipsum",
+      "FileName": "BlankPage.pdf"
+    }
+  }
+}
