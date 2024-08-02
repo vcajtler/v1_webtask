@@ -38,4 +38,4 @@ NUnit, Playwright
 
 ## Konfigurace
 
-Soubor `TestData.json` obsahuje data pro vyplnění formuláře a připojení k databázi 
+Soubor `TestData.json` obsahuje data pro manipulaci s prvky webové stránky a připojení k databázi 

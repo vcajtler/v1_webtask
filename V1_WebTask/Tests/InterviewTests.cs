@@ -34,7 +34,6 @@ public class InterviewTests
         Playwright.Dispose();
     }
 
-
     // 1. Práce s Elementy
     // Otevřete webovou stránku, vyberte záložku "Kariéra" a najděte formulář "Kontaktujte nás".
     // Ověřte, že pokud není zaškrtnut souhlas se zpracováním osobních údajů, zobrazí se upozornění:
@@ -43,20 +42,19 @@ public class InterviewTests
     public async Task ShouldShowError_WhenCheckboxUnchecked()
     {
         // Click on the "Kariéra" tab
-        await Page.ClickAsync("a.text-reset[href='/kariera']");
+        await Page.ClickAsync(_testData.GetSelector("CareerTab"));
 
         // Select the checkbox
-        await Page.UncheckAsync("input.form-check-input#gdpr");
+        await Page.UncheckAsync(_testData.GetSelector("ConsentCheckbox"));
 
         // Attempt to submit the form without checking the consent checkbox
-        await Page.ClickAsync(".btn.ContactForm_contact-form__button__EuaVy.btn.btn-contained");
+        await Page.ClickAsync(_testData.GetSelector("SubmitButton"));
 
         // Verify that the correct validation message is displayed
-        var validationMessage = await Page.WaitForSelectorAsync(".invalid-feedback.m-0.fs-7");
+        var validationMessage = await Page.WaitForSelectorAsync(_testData.GetSelector("ValidationMessage"));
         Assert.AreEqual("Je třeba zaškrtnout políčko Souhlasím se zpracováním osobních údajů",
             await validationMessage.TextContentAsync(), "Validation message does not match expected value");
     }
-
 
     // 2. Vyplnění formuláře
     // Vyplňte formulář platnými údaji, včetně připojení souboru ve správném formátu, odešlete formulář a následně uzavřete potvrzovací okno.
@@ -66,11 +64,9 @@ public class InterviewTests
         await InsertValidDataIntoForm();
 
         // Wait for confirmation dialog to appear
-        await Page.WaitForSelectorAsync(
-            "button.btn.my-6.w-50.ContactForm_contact-form__button__EuaVy.btn.btn-contained");
-        await Page.ClickAsync("button.btn.my-6.w-50.ContactForm_contact-form__button__EuaVy.btn.btn-contained");
+        await Page.WaitForSelectorAsync(_testData.GetSelector("ConfirmationButton"));
+        await Page.ClickAsync(_testData.GetSelector("ConfirmationButton"));
     }
-
 
     // 3. Ověření v databázi
     // Ověřte, že hodnoty zadané do formuláře byly správně uloženy v databázi
@@ -83,7 +79,6 @@ public class InterviewTests
         var databaseUtility = new DatabaseUtility(_testData.DatabaseData);
         await databaseUtility.OpenConnectionAsync();
 
-
         var query = @$"
                 SELECT COUNT(*)
                 FROM {_testData.DatabaseData.TableName}
@@ -94,34 +89,26 @@ public class InterviewTests
                     message = @Message AND
                     file_name = @FileName";
 
-
         var count = (long)(await databaseUtility.ExecuteQueryAsync(query, _testData.FormData) ?? 0);
         Assert.IsTrue(count > 0, "Inserted form data was not found in the database");
     }
 
-
     private async Task InsertValidDataIntoForm()
     {
         // Click on the "Kariéra" tab
-        await Page.ClickAsync("a.text-reset[href='/kariera']");
+        await Page.ClickAsync(_testData.GetSelector("CareerTab"));
 
         // Select the checkbox
-        await Page.CheckAsync("input.form-check-input#gdpr");
+        await Page.CheckAsync(_testData.GetSelector("ConsentCheckbox"));
 
         // Fill out the form fields
-        await Page.FillAsync(
-            "input.form-control.ContactForm_contact-form__form-input__r1d8Z[placeholder='Jméno a Příjmení']",
-            _testData.FormData.Name);
-        await Page.FillAsync("input.form-control.ContactForm_contact-form__form-input__r1d8Z[placeholder='E-mail']",
-            _testData.FormData.Email);
-        await Page.FillAsync("input.form-control.ContactForm_contact-form__form-input__r1d8Z[placeholder='Telefon']",
-            _testData.FormData.Phone);
-        await Page.FillAsync(
-            "textarea.form-control.ContactForm_contact-form__text-area__2hee9[placeholder='Vaše zpráva']",
-            _testData.FormData.Message);
-        await Page.SetInputFilesAsync("#cvFile", $"Utilities/{_testData.FormData.FileName}");
+        await Page.FillAsync(_testData.GetSelector("NameField"), _testData.FormData.Name);
+        await Page.FillAsync(_testData.GetSelector("EmailField"), _testData.FormData.Email);
+        await Page.FillAsync(_testData.GetSelector("PhoneField"), _testData.FormData.Phone);
+        await Page.FillAsync(_testData.GetSelector("MessageField"), _testData.FormData.Message);
+        await Page.SetInputFilesAsync(_testData.GetSelector("FileInput"), $"Utilities/{_testData.FormData.FileName}");
 
         // Submit the form
-        await Page.ClickAsync(".btn.ContactForm_contact-form__button__EuaVy.btn.btn-contained");
+        await Page.ClickAsync(_testData.GetSelector("SubmitButton"));
     }
 }

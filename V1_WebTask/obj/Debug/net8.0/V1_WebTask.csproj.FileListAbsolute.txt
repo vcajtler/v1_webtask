@@ -417,3 +417,4 @@ D:\GIT\v1_webtask\V1_WebTask\V1_WebTask\bin\Debug\net8.0\zh-Hant\Microsoft.Visua
 D:\GIT\v1_webtask\V1_WebTask\V1_WebTask\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
 D:\GIT\v1_webtask\V1_WebTask\V1_WebTask\bin\Debug\net8.0\Utilities\BlankPage.pdf
 D:\GIT\v1_webtask\V1_WebTask\V1_WebTask\bin\Debug\net8.0\Utilities\testdata.json
+D:\GIT\v1_webtask\V1_WebTask\V1_WebTask\obj\Debug\net8.0\V1_WebTask.sourcelink.json

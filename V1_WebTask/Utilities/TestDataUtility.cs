@@ -7,6 +7,7 @@ public class TestDataUtility
     public DatabaseData? DatabaseData { get; }
     public FormData? FormData { get; }
     public string? BaseUrl { get; }
+    public Dictionary<string, string> Selectors { get; }
 
     public TestDataUtility()
     {
@@ -21,8 +22,11 @@ public class TestDataUtility
                    ?? throw new InvalidOperationException("FormData section in TestData is invalid.");
         BaseUrl = configuration.GetSection("TestData:BaseUrl").Value
                   ?? throw new InvalidOperationException("BaseUrl section in TestData is invalid.");
-
+        Selectors = configuration.GetSection("TestData:Selectors").Get<Dictionary<string, string>>()
+                    ?? throw new InvalidOperationException("Selectors section in TestData is invalid.");
     }
+
+    public string GetSelector(string key) => Selectors.TryGetValue(key, out var value) ? value : throw new KeyNotFoundException($"Selector '{key}' not found.");
 }
 
 public class DatabaseData

@@ -15,6 +15,18 @@
       "Phone": "+1234567890",
       "Message": "Lorem ipsum",
       "FileName": "BlankPage.pdf"
+    },
+    "Selectors": {
+      "CareerTab": "a.text-reset[href='/kariera']",
+      "ConsentCheckbox": "input.form-check-input#gdpr",
+      "SubmitButton": ".btn.ContactForm_contact-form__button__EuaVy.btn.btn-contained",
+      "ValidationMessage": ".invalid-feedback.m-0.fs-7",
+      "NameField": "input.form-control.ContactForm_contact-form__form-input__r1d8Z[placeholder='Jméno a Příjmení']",
+      "EmailField": "input.form-control.ContactForm_contact-form__form-input__r1d8Z[placeholder='E-mail']",
+      "PhoneField": "input.form-control.ContactForm_contact-form__form-input__r1d8Z[placeholder='Telefon']",
+      "MessageField": "textarea.form-control.ContactForm_contact-form__text-area__2hee9[placeholder='Vaše zpráva']",
+      "FileInput": "#cvFile",
+      "ConfirmationButton": "button.btn.my-6.w-50.ContactForm_contact-form__button__EuaVy.btn.btn-contained"
     }
   }
 }
