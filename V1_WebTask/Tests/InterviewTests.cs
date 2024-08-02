@@ -73,9 +73,6 @@ public class InterviewTests
     [Test]
     public async Task SubmitValidContactForm_ShouldBePresentInDatabase()
     {
-        // Insert valid data into the form
-        await InsertValidDataIntoForm();
-
         var databaseUtility = new DatabaseUtility(_testData.DatabaseData);
         await databaseUtility.OpenConnectionAsync();
 
@@ -89,8 +86,16 @@ public class InterviewTests
                     message = @Message AND
                     file_name = @FileName";
 
+        // Get the initial count of records in the database
+        var initialCount = (long)(await databaseUtility.ExecuteQueryAsync(query, _testData.FormData) ?? 0);
+
+        // Insert valid data into the form
+        await InsertValidDataIntoForm();
+
+        // Get the count of records in the database after inserting the form data
         var count = (long)(await databaseUtility.ExecuteQueryAsync(query, _testData.FormData) ?? 0);
-        Assert.IsTrue(count > 0, "Inserted form data was not found in the database");
+
+        Assert.IsTrue(count > initialCount, "Inserted form data was not found in the database");
     }
 
     private async Task InsertValidDataIntoForm()
